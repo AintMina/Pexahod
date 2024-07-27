@@ -1,0 +1,12 @@
+[submodule "uROSws/src/FreeRTOS-Kernel"]
+	path = uROSws/src/FreeRTOS-Kernel
+	url = https://github.com/FreeRTOS/FreeRTOS-Kernel.git
+[submodule "uROSws/src/micro_ros_raspberrypi_pico_sdk"]
+	path = uROSws/src/micro_ros_raspberrypi_pico_sdk
+	url = https://github.com/micro-ROS/micro_ros_raspberrypi_pico_sdk.git
+[submodule "uROSws/src/pico-sdk"]
+	path = uROSws/src/pico-sdk
+	url = https://github.com/raspberrypi/pico-sdk.git
+[submodule "uROSws/src/pimoroni-pico"]
+	path = uROSws/src/pimoroni-pico
+	url = https://github.com/pimoroni/pimoroni-pico.git
