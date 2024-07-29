@@ -1,0 +1,13 @@
+# Target labels
+ PioasmBuild
+# Source files and their labels
+/home/ros/Pexahod/uROSws/src/micro-pexahod/build/pico-sdk/src/rp2_common/tinyusb/CMakeFiles/PioasmBuild
+/home/ros/Pexahod/uROSws/src/micro-pexahod/build/pico-sdk/src/rp2_common/tinyusb/CMakeFiles/PioasmBuild.rule
+/home/ros/Pexahod/uROSws/src/micro-pexahod/build/pico-sdk/src/rp2_common/tinyusb/CMakeFiles/PioasmBuild-complete.rule
+/home/ros/Pexahod/uROSws/src/micro-pexahod/build/pico-sdk/src/rp2_common/tinyusb/pioasm/src/PioasmBuild-stamp/PioasmBuild-build.rule
+/home/ros/Pexahod/uROSws/src/micro-pexahod/build/pico-sdk/src/rp2_common/tinyusb/pioasm/src/PioasmBuild-stamp/PioasmBuild-configure.rule
+/home/ros/Pexahod/uROSws/src/micro-pexahod/build/pico-sdk/src/rp2_common/tinyusb/pioasm/src/PioasmBuild-stamp/PioasmBuild-download.rule
+/home/ros/Pexahod/uROSws/src/micro-pexahod/build/pico-sdk/src/rp2_common/tinyusb/pioasm/src/PioasmBuild-stamp/PioasmBuild-install.rule
+/home/ros/Pexahod/uROSws/src/micro-pexahod/build/pico-sdk/src/rp2_common/tinyusb/pioasm/src/PioasmBuild-stamp/PioasmBuild-mkdir.rule
+/home/ros/Pexahod/uROSws/src/micro-pexahod/build/pico-sdk/src/rp2_common/tinyusb/pioasm/src/PioasmBuild-stamp/PioasmBuild-patch.rule
+/home/ros/Pexahod/uROSws/src/micro-pexahod/build/pico-sdk/src/rp2_common/tinyusb/pioasm/src/PioasmBuild-stamp/PioasmBuild-update.rule
