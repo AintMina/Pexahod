@@ -14,7 +14,6 @@ pico_sdk_init()
 include($ENV{FREERTOS_KERNEL_PATH}/portable/ThirdParty/GCC/RP2040/FreeRTOS_Kernel_import.cmake)
 
 # Pull in servo2040
-#set(PIMORONI_PICO_PATH ~/Pexahod/uROSws/src/pimoroni-pico)
 include($ENV{PIMORONI_PICO_PATH}/pimoroni_pico_import.cmake)
 
 link_directories(libmicroros)

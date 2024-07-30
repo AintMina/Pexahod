@@ -2,25 +2,25 @@
 #include "errors.h"
 
 // Constructors
-Leg::Leg(offset_t offset, Servo coxa, Servo femur, Servo tibia) {}
-Leg::Leg(offset_t offset, int16_t coxa_length, int16_t femur_length, int16_t tibia_length, Servo coxa, Servo femur, Servo tibia) {}
+Leg::Leg(offset_t offset, uint coxa, uint femur, uint tibia) {}
+Leg::Leg(offset_t offset, int16_t coxa_length, int16_t femur_length, int16_t tibia_length, uint coxa, uint femur, uint tibia) {}
 
 uint8_t Leg::init() {
     return 0;
 }
 
 uint8_t Leg::enable() {
-    this->enable = 1;
+    this->enabled = 1;
     return 0;
 }
 
 uint8_t Leg::disable() {
-    this->enable = 0;
+    this->enabled = 0;
     return 0;
 }
 
 uint8_t Leg::is_enabled() const {
-    return this->enable;
+    return this->enabled;
 }
 
 uint8_t Leg::set_offset(offset_t offset) {
@@ -159,7 +159,7 @@ uint8_t Leg::get_end_stop_sensor() const {
     return this->end_stop_sensor;
 }
 
-uint8_t Leg::transform_xyz(int32_t x, int32_t y, int32_t z) {
+uint8_t Leg::transform_xyz(position_t position) {
     return 0;
 }
 

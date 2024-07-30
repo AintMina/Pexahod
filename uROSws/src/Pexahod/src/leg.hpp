@@ -2,8 +2,7 @@
 #define LEG_HPP
 
 #include <cstdint>
-#include "servo2040.hpp"
-using namespace servo;
+#include "pico/stdlib.h"
 
 struct offset_t {
     int32_t X;
@@ -17,11 +16,17 @@ struct position_t {
     int32_t Z;
 };
 
+struct servos_t {
+    uint coxa;
+    uint femur;
+    uint tibia;
+};
+
 class Leg {
 
 private:
     uint8_t enabled = 0;
-    offset_t offset = (0, 0, 0);  // (X,Y,rotation)
+    offset_t offset = {0, 0, 0};  // (X,Y,rotation)
     uint16_t coxa_length = 0;
     uint16_t femur_length = 0;
     uint16_t tibia_length = 0;
@@ -33,16 +38,16 @@ private:
     int16_t tibia_limits[2];  // (min,max)
     position_t leg_position;  // (X,Y,Z)
     position_t calculated_position;  // (X,Y,Z)
-    int16_t sensor_position[3] = (0, 0, 0);  // (coxa,femur,tibia)
+    int16_t sensor_position[3] = {0, 0, 0};  // (coxa,femur,tibia)
     uint8_t end_stop_sensor = 0;
-    Servo servos[3];  // (coxa,femur,tibia)
+    servos_t servos;  // (coxa,femur,tibia)
     uint8_t move = 0; // ???
 
 public:
     // Constructors
     Leg() = default;
-    Leg(offset_t offset, Servo coxa, Servo femur, Servo tibia);
-    Leg(offset_t offset, int16_t coxa_length, int16_t femur_length, int16_t tibia_length, Servo coxa, Servo femur, Servo tibia);
+    Leg(offset_t offset, uint coxa, uint femur, uint tibia);
+    Leg(offset_t offset, int16_t coxa_length, int16_t femur_length, int16_t tibia_length, uint coxa, uint femur, uint tibia);
 
     uint8_t init();
 
