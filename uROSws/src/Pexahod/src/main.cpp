@@ -1,3 +1,25 @@
+/*
+
+     (1)               (6)
+       \               /
+        \             /
+         \           /
+          *---------*
+         /           \
+        /             \
+       /               \
+(2)---*                 *---(5)
+       \               /
+        \             /
+         \           /
+          *---------*
+         /           \
+        /             \
+       /               \
+     (3)               (4)
+
+*/
+
 // Pico
 #include "pico/stdlib.h"
 
@@ -16,6 +38,10 @@
 extern "C" {
     #include "pico_uart_transports.h"
 }
+
+// Own
+#include "sensors.h"
+#include "servos.h"
 
 // servo2040
 #include "servo2040.hpp"

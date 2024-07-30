@@ -16,10 +16,11 @@ struct position_t {
     int32_t Z;
 };
 
+// From SERVO_1 to SERVO_18
 struct servos_t {
-    uint coxa;
-    uint femur;
-    uint tibia;
+    uint8_t coxa;
+    uint8_t femur;
+    uint8_t tibia;
 };
 
 class Leg {
@@ -85,6 +86,13 @@ public:
     uint8_t get_sensor_position(int16_t *position) const;
     uint8_t read_end_stop_sensor();
     uint8_t get_end_stop_sensor() const;
+
+    uint8_t set_coxa_servo(uint8_t servo);
+    uint8_t get_coxa_servo() const;
+    uint8_t set_femur_servo(uint8_t servo);
+    uint8_t get_femur_servo() const;
+    uint8_t set_tibia_servo(uint8_t servo);
+    uint8_t get_tibia_servo() const;
 
     uint8_t transform_xyz(position_t position);
     uint8_t calculate_coxa_position();

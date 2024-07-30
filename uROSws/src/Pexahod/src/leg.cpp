@@ -159,6 +159,40 @@ uint8_t Leg::get_end_stop_sensor() const {
     return this->end_stop_sensor;
 }
 
+
+uint8_t Leg::set_coxa_servo(uint8_t servo) {
+    this->servos.coxa = servo;
+    return 0;
+}
+
+
+uint8_t Leg::get_coxa_servo() const {
+    return this->servos.coxa;
+}
+
+
+uint8_t Leg::set_femur_servo(uint8_t servo) {
+    this->servos.femur = servo;
+    return 0;
+}
+
+
+uint8_t Leg::get_femur_servo() const {
+    return this->servos.femur;
+}
+
+
+uint8_t Leg::set_tibia_servo(uint8_t servo) {
+    this->servos.tibia = servo;
+    return 0;
+}
+
+
+uint8_t Leg::get_tibia_servo() const {
+    return this->servos.tibia;
+}
+
+
 uint8_t Leg::transform_xyz(position_t position) {
     return 0;
 }
