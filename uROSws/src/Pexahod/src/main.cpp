@@ -87,10 +87,43 @@ int main() {
 
     stdio_init_all();
 
-    while (!tud_cdc_connected()) { sleep_ms(100);  }
+    // while (!tud_cdc_connected()) { sleep_ms(100);  }
 
     leg1.init();
-    sleep_ms(4000);
+    init_servos();
+    update_servos(all_legs);
+    sleep_ms(5000);
+
+    while (1) {
+        for (float i = 10; i < 5000; i++) {
+            offset_t pos = {0, 0, 0, 0};
+            leg1.get_offset(&pos);
+
+            position_t position = {pos.X, pos.Y, pos.Z};
+            int16_t theta = 0 + pos.rotation;
+            position.X += (leg1.get_coxa_length() + leg1.get_femur_length() + leg1.get_tibia_length() - (i / 100)) * cos(deg2rad(theta));
+            position.Y += (leg1.get_coxa_length() + leg1.get_femur_length() + leg1.get_tibia_length() - (i / 100)) * sin(deg2rad(theta));
+            position.Z = 0;
+            leg1.set_leg_position(&position);
+            update_servos(all_legs);
+            sleep_us(10);
+        }
+
+        for (float i = 5000; i >= 10; i--) {
+            offset_t pos = {0, 0, 0, 0};
+            leg1.get_offset(&pos);
+
+            position_t position = {pos.X, pos.Y, pos.Z};
+            int16_t theta = 0 + pos.rotation;
+            position.X += (leg1.get_coxa_length() + leg1.get_femur_length() + leg1.get_tibia_length() - (i / 100)) * cos(deg2rad(theta));
+            position.Y += (leg1.get_coxa_length() + leg1.get_femur_length() + leg1.get_tibia_length() - (i / 100)) * sin(deg2rad(theta));
+            position.Z = 0;
+            leg1.set_leg_position(&position);
+            update_servos(all_legs);
+            sleep_us(10);
+        }
+    }
+
     // offset_t pos = {0, 0, 0, 0};
     // leg1.get_offset(&pos);
 
@@ -109,8 +142,6 @@ int main() {
     // for (uint8_t leg = 0; leg < 6; leg++) {
     //     all_legs[leg].init();
     // }
-
-    init_servos();
     update_servos(all_legs);
 
     sleep_ms(10000);

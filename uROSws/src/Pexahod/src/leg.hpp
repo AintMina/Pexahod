@@ -36,9 +36,9 @@ private:
     uint16_t coxa_length = 65;
     uint16_t femur_length = 120;
     uint16_t tibia_length = 200;
-    int16_t coxa_current_position = 0;
-    int16_t femur_current_position = 0;
-    int16_t tibia_current_position = 0;
+    float coxa_current_position = 0;
+    float femur_current_position = 0;
+    float tibia_current_position = 0;
     int16_t coxa_limits[2];  // (min,max)
     int16_t femur_limits[2];  // (min,max)
     int16_t tibia_limits[2];  // (min,max)
@@ -71,12 +71,12 @@ public:
     uint8_t set_tibia_length(uint16_t length);
     uint16_t get_tibia_length() const;
 
-    uint8_t set_coxa_position(int16_t position);
-    int16_t get_coxa_position() const;
-    uint8_t set_femur_position(int16_t position);
-    int16_t get_femur_position() const;
-    uint8_t set_tibia_position(int16_t position);
-    int16_t get_tibia_position() const;
+    uint8_t set_coxa_position(float position);
+    float get_coxa_position() const;
+    uint8_t set_femur_position(float position);
+    float get_femur_position() const;
+    uint8_t set_tibia_position(float position);
+    float get_tibia_position() const;
 
     uint8_t set_coxa_limits(int16_t min, int16_t max);
     uint8_t set_femur_limits(int16_t min, int16_t max);
