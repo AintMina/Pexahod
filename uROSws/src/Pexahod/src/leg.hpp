@@ -5,9 +5,10 @@
 #include "pico/stdlib.h"
 
 struct offset_t {
-    int32_t X;
-    int32_t Y;
-    int32_t rotation;
+    float X;
+    float Y;
+    float Z;
+    float rotation;
 };
 
 struct position_t {
@@ -27,10 +28,10 @@ class Leg {
 
 private:
     uint8_t enabled = 0;
-    offset_t offset = {0, 0, 0};  // (X,Y,rotation)
-    uint16_t coxa_length = 0;
-    uint16_t femur_length = 0;
-    uint16_t tibia_length = 0;
+    offset_t offset = {0, 0, 0, 0};  // (X,Y,rotation)
+    uint16_t coxa_length = 65;
+    uint16_t femur_length = 120;
+    uint16_t tibia_length = 200;
     int16_t coxa_current_position = 0;
     int16_t femur_current_position = 0;
     int16_t tibia_current_position = 0;
@@ -38,7 +39,7 @@ private:
     int16_t femur_limits[2];  // (min,max)
     int16_t tibia_limits[2];  // (min,max)
     position_t leg_position;  // (X,Y,Z)
-    position_t calculated_position;  // (X,Y,Z)
+    position_t sensor_calculated_position;  // (X,Y,Z)
     int16_t sensor_position[3] = {0, 0, 0};  // (coxa,femur,tibia)
     uint8_t end_stop_sensor = 0;
     servos_t servos;  // (coxa,femur,tibia)
@@ -79,8 +80,8 @@ public:
 
     uint8_t set_leg_position(position_t position);
     uint8_t get_leg_position(position_t position) const;
-    uint8_t set_calculated_position(position_t position);
-    uint8_t get_calculated_position(position_t position) const;
+    uint8_t set_sensor_calculated_position(position_t position);
+    uint8_t get_sensor_calculated_position(position_t position) const;
     
     uint8_t set_sensor_position(int16_t *position);
     uint8_t get_sensor_position(int16_t *position) const;
@@ -94,7 +95,6 @@ public:
     uint8_t set_tibia_servo(uint8_t servo);
     uint8_t get_tibia_servo() const;
 
-    uint8_t transform_xyz(position_t position);
     uint8_t calculate_coxa_position();
     uint8_t calculate_femur_position();
     uint8_t calculate_tibia_position();
