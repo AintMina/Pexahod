@@ -12,9 +12,9 @@ struct offset_t {
 };
 
 struct position_t {
-    int32_t X;
-    int32_t Y;
-    int32_t Z;
+    float X;
+    float Y;
+    float Z;
 };
 
 // From SERVO_1 to SERVO_18
@@ -23,6 +23,10 @@ struct servos_t {
     uint8_t femur;
     uint8_t tibia;
 };
+
+
+double deg2rad(double degrees);
+double rad2deg(double radians);
 
 class Leg {
 
@@ -58,7 +62,7 @@ public:
     uint8_t is_enabled() const;
 
     uint8_t set_offset(offset_t offset);
-    uint8_t get_offset(offset_t offset) const;
+    uint8_t get_offset(offset_t *offset) const;
 
     uint8_t set_coxa_length(uint16_t length);
     uint16_t get_coxa_length() const;
@@ -78,8 +82,8 @@ public:
     uint8_t set_femur_limits(int16_t min, int16_t max);
     uint8_t set_tibia_limits(int16_t min, int16_t max);
 
-    uint8_t set_leg_position(position_t position);
-    uint8_t get_leg_position(position_t position) const;
+    uint8_t set_leg_position(position_t *position);
+    uint8_t get_leg_position(position_t *position) const;
     uint8_t set_sensor_calculated_position(position_t position);
     uint8_t get_sensor_calculated_position(position_t position) const;
     
@@ -99,11 +103,6 @@ public:
     uint8_t calculate_femur_position();
     uint8_t calculate_tibia_position();
     uint8_t calculate_positions();
-
-    uint8_t move_coxa() const;
-    uint8_t move_femur() const;
-    uint8_t move_tibia() const;
-    uint8_t move_leg() const;
 };
 
 #endif // LEG_HPP

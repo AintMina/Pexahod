@@ -22,6 +22,7 @@
 
 // System
 #include "pico/stdlib.h"
+#include <tusb.h>
 #include <math.h>
 
 // FreeRTOS
@@ -80,8 +81,43 @@ Leg leg5 = Leg(leg5_offset, coxa_length, femur_length, tibia_length, servo2040::
 offset_t leg6_offset = {x_1, y_1, 60};
 Leg leg6 = Leg(leg6_offset, coxa_length, femur_length, tibia_length, servo2040::SERVO_18, servo2040::SERVO_17, servo2040::SERVO_16);
 
-Leg all_legs[6] = {leg1, leg2, leg3, leg4, leg5, leg6};
+Leg *all_legs[6] = {&leg1, &leg2, &leg3, &leg4, &leg5, &leg6};
 
 int main() {
+
     stdio_init_all();
+
+    while (!tud_cdc_connected()) { sleep_ms(100);  }
+
+    leg1.init();
+    sleep_ms(4000);
+    // offset_t pos = {0, 0, 0, 0};
+    // leg1.get_offset(&pos);
+
+    // printf("%f - %f - %f - %f\n\r", pos.X, pos.Y, pos.Z, pos.rotation);
+
+    // position_t position = {pos.X, pos.Y, pos.Z};
+    // int16_t theta = 30 + pos.rotation;
+    // position.X += (leg1.get_coxa_length() + leg1.get_femur_length() + leg1.get_tibia_length()) * cos(deg2rad(theta));
+    // position.Y += (leg1.get_coxa_length() + leg1.get_femur_length() + leg1.get_tibia_length()) * sin(deg2rad(theta));
+    // position.Z = 0;
+    // leg1.set_leg_position(&position);
+
+    // leg1.get_leg_position(&position);
+    // printf("%f - %f - %f\n\r", position.X, position.Y, position.Z);
+
+    // for (uint8_t leg = 0; leg < 6; leg++) {
+    //     all_legs[leg].init();
+    // }
+
+    init_servos();
+    update_servos(all_legs);
+
+    sleep_ms(10000);
+
+    vTaskStartScheduler();
+
+    while (1) {
+        
+    }
 }

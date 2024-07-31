@@ -11,7 +11,7 @@ using namespace servo;
 
 
 uint8_t init_servos();
-uint8_t update_servos(Leg *legs);
+uint8_t update_servos(Leg *legs[]);
 
 
 
