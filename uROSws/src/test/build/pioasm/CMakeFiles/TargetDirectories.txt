@@ -1,3 +1,0 @@
-/home/ros/Pexahod/uROSws/src/micro-pexahod/build/pioasm/CMakeFiles/pioasm.dir
-/home/ros/Pexahod/uROSws/src/micro-pexahod/build/pioasm/CMakeFiles/edit_cache.dir
-/home/ros/Pexahod/uROSws/src/micro-pexahod/build/pioasm/CMakeFiles/rebuild_cache.dir

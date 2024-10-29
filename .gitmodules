@@ -10,3 +10,6 @@
 [submodule "uROSws/src/pimoroni-pico"]
 	path = uROSws/src/pimoroni-pico
 	url = https://github.com/pimoroni/pimoroni-pico.git
+[submodule "uROSws/src/RF24"]
+	path = uROSws/src/RF24
+	url = https://github.com/nRF24/RF24.git
