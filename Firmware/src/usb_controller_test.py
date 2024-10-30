@@ -42,7 +42,7 @@ RIGHT_JOYSTICK_Y = ecodes.ABS_RY
 joystick_position = {'left_x': 0, 'left_y': 0, 'right_x': 0, 'right_y': 0}
 
 # Rate limiting configuration
-rate_limit_interval = 0.02  # 10 updates per second
+rate_limit_interval = 0.01  # 10 updates per second
 last_sent_time = {'left_x': 0, 'left_y': 0, 'right_x': 0, 'right_y': 0}
 
 def calculate_crc(data):
@@ -56,12 +56,19 @@ def normalize(value, min_input, max_input):
 
 def send_serial_message(command, data_float):
     """Send data to the serial port using the nrf_message_t structure."""
-    data = struct.pack('<f', data_float)  # Little-endian float
+    f = round(data_float, 3)
+
+    if (f < 0.15 and f > -0.15):
+        f = 0.0
+
+    # print(f)
+    data = struct.pack('<f', f)  # Little-endian float
     length = len(data)
     message = struct.pack('<BBB', PREFIX, length, ID) + bytes([command]) + data
     crc = calculate_crc(message)
     message += bytes([crc])
     ser.write(message)
+    print(f"length: {length} | CMD: {command} | Data: {f:.3f} | CRC: {crc}", flush=True)
 
 try:
     # Event loop to read joystick data
@@ -73,24 +80,28 @@ try:
                 joystick_position['left_x'] = normalize(event.value, device.absinfo(LEFT_JOYSTICK_X).min, device.absinfo(LEFT_JOYSTICK_X).max)
                 if current_time - last_sent_time['left_x'] >= rate_limit_interval:
                     send_serial_message(COMMAND_LEFT_J_X, joystick_position['left_x'])
+                    # print(f"Sent LEFT_J_X: {joystick_position['left_x']}")
                     last_sent_time['left_x'] = current_time
 
             elif event.code == LEFT_JOYSTICK_Y:
                 joystick_position['left_y'] = normalize(event.value, device.absinfo(LEFT_JOYSTICK_Y).min, device.absinfo(LEFT_JOYSTICK_Y).max)
                 if current_time - last_sent_time['left_y'] >= rate_limit_interval:
                     send_serial_message(COMMAND_LEFT_J_Y, joystick_position['left_y'])
+                    # print(f"Sent LEFT_J_Y: {joystick_position['left_y']}")
                     last_sent_time['left_y'] = current_time
 
             elif event.code == RIGHT_JOYSTICK_X:  # Use ABS_RZ or axis 4 if necessary
                 joystick_position['right_x'] = normalize(event.value, device.absinfo(RIGHT_JOYSTICK_X).min, device.absinfo(RIGHT_JOYSTICK_X).max)
                 if current_time - last_sent_time['right_x'] >= rate_limit_interval:
                     send_serial_message(COMMAND_RIGHT_J_X, joystick_position['right_x'])
+                    # print(f"Sent RIGHT_J_X: {joystick_position['right_x']}")
                     last_sent_time['right_x'] = current_time
 
             elif event.code == RIGHT_JOYSTICK_Y:  # Use ABS_RY or axis 5 if necessary
                 joystick_position['right_y'] = normalize(event.value, device.absinfo(RIGHT_JOYSTICK_Y).min, device.absinfo(RIGHT_JOYSTICK_Y).max)
                 if current_time - last_sent_time['right_y'] >= rate_limit_interval:
                     send_serial_message(COMMAND_RIGHT_J_Y, joystick_position['right_y'])
+                    # print(f"Sent RIGHT_J_Y: {joystick_position['right_y']}")
                     last_sent_time['right_y'] = current_time
 
 except KeyboardInterrupt:

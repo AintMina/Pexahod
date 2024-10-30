@@ -29,10 +29,11 @@ void read_custom_message() {
             }
 
             message_ptr++;
-            if (message.command) {
+            if (message.command && message.command < COMMAND_ENUM_SIZE) {
                 if (message_ptr >= ((uint8_t *)&message + (sizeof(message) - sizeof(message.data)) + message.length)) {
-                    //message.crc = message.data[message.length];
                     send_to_queue(0, &message, 1);
+                    memset(&message, 0, sizeof(message));
+                    message_ptr = (uint8_t *)&message;
                 }
             }
 

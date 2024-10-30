@@ -60,6 +60,7 @@ int main() {
     timer_hw->dbgpause = 0;
 
     stdio_init_all();
+
     stdio_set_translate_crlf(&stdio_usb, false);
     sleep_ms(10);
 
@@ -78,10 +79,10 @@ int main() {
 
     
     // Create Dumb Mode Task
-    xTaskCreate(dumb_main, "DumbModeTask", 1024, NULL, 1, &xDumbModeHandle);
-    UBaseType_t uxCoreAffinityMask;
-    uxCoreAffinityMask = (( 1 << 0 ));
-    vTaskCoreAffinitySet(xDumbModeHandle, uxCoreAffinityMask);
+    xTaskCreate(dumb_main, "DumbModeTask", 2048, NULL, 1, &xDumbModeHandle);
+    // UBaseType_t uxCoreAffinityMask;
+    // uxCoreAffinityMask = (( 1 << 0 ));
+    // vTaskCoreAffinitySet(xDumbModeHandle, uxCoreAffinityMask);
 
     // nrf_init();
     //xTaskCreate(nrf_main, "NrfTask", 1024, NULL, 1, &xNrfHandle);
@@ -89,15 +90,15 @@ int main() {
     // vTaskCoreAffinitySet(xNrfHandle, uxCoreAffinityMask);
 
 
-    xTaskCreate(usb_main, "UsbTask", 1024, NULL, 1, &xUsbHandle);
-    uxCoreAffinityMask = (( 1 << 1 ));
-    vTaskCoreAffinitySet(xUsbHandle, uxCoreAffinityMask);
+    xTaskCreate(usb_main, "UsbTask", 2048, NULL, 1, &xUsbHandle);
+    // uxCoreAffinityMask = (( 1 << 1 ));
+    // vTaskCoreAffinitySet(xUsbHandle, uxCoreAffinityMask);
 
     // TEMP
-    xTaskCreate(sensors_main, "SensorTask", 1024, NULL, 2, &xSensorHandle);
-    vTaskCoreAffinitySet(xSensorHandle, uxCoreAffinityMask);
-    xTaskCreate(command_handler_main, "CommandTask", 1024, NULL, 2, &xCommandHandle);
-    vTaskCoreAffinitySet(xCommandHandle, uxCoreAffinityMask);
+    xTaskCreate(sensors_main, "SensorTask", 2048, NULL, 2, &xSensorHandle);
+    // vTaskCoreAffinitySet(xSensorHandle, uxCoreAffinityMask);
+    xTaskCreate(command_handler_main, "CommandTask", 2048, NULL, 2, &xCommandHandle);
+    // vTaskCoreAffinitySet(xCommandHandle, uxCoreAffinityMask);
 
     // Start the scheduler
     vTaskStartScheduler();

@@ -5,7 +5,6 @@
 #include "led.h"
 #include "servos.h"
 #include "robot.hpp"
-#include "global.hpp"
 
 #include <string.h>
 
@@ -48,7 +47,7 @@ void command_handler_main(void *pvParameters) {
                     uint32_t combined = (message.data[3] << 24) | (message.data[2] << 16) | (message.data[1] << 8) | message.data[0];
                     float value = 0;
                     memcpy(&value, &combined, sizeof(value));
-                    robot_object.set_x_velocity(value);
+                    set_x_velocity(value);
                     break;
                 }
                 case LEFT_J_Y: {
@@ -56,7 +55,7 @@ void command_handler_main(void *pvParameters) {
                     uint32_t combined = (message.data[3] << 24) | (message.data[2] << 16) | (message.data[1] << 8) | message.data[0];
                     float value = 0;
                     memcpy(&value, &combined, sizeof(value));
-                    robot_object.set_y_velocity(value);
+                    set_y_velocity(value);
                     break;
                 }
                 case LEFT_J: {
@@ -68,7 +67,7 @@ void command_handler_main(void *pvParameters) {
                     uint32_t combined = (message.data[3] << 24) | (message.data[2] << 16) | (message.data[1] << 8) | message.data[0];
                     float value = 0;
                     memcpy(&value, &combined, sizeof(value));
-                    robot_object.set_rotation_velocity(value);
+                    set_rotation_velocity(value);
                     break;
                 }
                 case RIGHT_J_Y: {

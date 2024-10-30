@@ -28,7 +28,6 @@
 #include "leg.hpp"
 #include "servo2040.hpp"
 #include "robot.hpp"
-#include "global.hpp"
 
 #include "FreeRTOS.h"
 #include "task.h"
@@ -80,13 +79,16 @@ void dumb_main(void *pvParameters) {
 
     // Initialize the last wake time
     TickType_t xLastWakeTime = xTaskGetTickCount();
-    const TickType_t xFrequency = pdMS_TO_TICKS(100); // 1000ms = 1 second
+    const TickType_t xFrequency = pdMS_TO_TICKS(5); // 1000ms = 1 second
 
 
     // Infinite loop for task
     while (1) {
-        velocity_t vel = robot_object.get_velocity();
-        set_led(5, (uint8_t)abs(255*vel.X), (uint8_t)abs(255*vel.Y), (uint8_t)abs(255*vel.rotation));
+        velocity_t vel = get_velocity();
+        uint8_t x = 255* abs(vel.X);
+        uint8_t y = 255* abs(vel.Y);
+        uint8_t r = 255* abs(vel.rotation);
+        set_led(5, x, y, r);
 
         // for (int i = 0; i < 255; i++) {
         //     set_led(0, 0, i, 0);

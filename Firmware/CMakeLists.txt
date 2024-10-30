@@ -21,7 +21,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # DEBUG
-# set(CMAKE_BUILD_TYPE "RelWithDebInfo")
+set(CMAKE_BUILD_TYPE "RelWithDebInfo")
 
 # Initialise pico_sdk from installed location
 # (note this can come from environment, CMake cache etc)
