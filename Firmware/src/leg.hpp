@@ -50,7 +50,7 @@ class Leg {
 
 private:
     uint8_t enabled = 0;
-    offset_t offset = {0, 0, 0, 0};  // (X,Y,rotation)
+    offset_t offset = {0, 0, 0, 0};  // (X,Y,Z,rotation)
     uint16_t coxa_length = 65;
     uint16_t femur_length = 120;
     uint16_t tibia_length = 200;
@@ -68,8 +68,8 @@ private:
     uint8_t move = 0; // ???
     uint16_t gait_offset_length = coxa_length + ((femur_length + tibia_length) / 2);
     position_t gait_offset_point;
-    uint16_t max_step_size = 100;
-    enum Gaits gait = TRIGAIT;
+    uint16_t max_step_size = 200;
+    enum Gaits gait = RIPPLEGAIT;
 
 public:
     // Constructors

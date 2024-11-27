@@ -40,6 +40,7 @@ enum Gaits {
 
 class Leg;
 void get_gait_point_v1(position_t return_points[6], Leg *legs[6], float time);
+void get_gait_point_v2(position_t return_points[6], Leg *legs[6], float time, velocity_t vel);
 
 
 #endif // GAIT_H

@@ -13,8 +13,8 @@ COMMAND_RIGHT_J_X = 4  # Enum value for LEFT_J_Y
 COMMAND_RIGHT_J_Y = 5  # Enum value for RIGHT_J_Y
 
 # Device paths (change as needed)
-device_path = '/dev/input/event23'  # Replace 'X' with your joystick's event number
-serial_port = '/dev/ttyACM1'       # Path to the USB serial device
+device_path = '/dev/input/event22'  # Replace 'X' with your joystick's event number
+serial_port = '/dev/ttyACM0'       # Path to the USB serial device
 
 # Initialize the joystick input device
 try:
@@ -86,7 +86,7 @@ try:
             elif event.code == LEFT_JOYSTICK_Y:
                 joystick_position['left_y'] = normalize(event.value, device.absinfo(LEFT_JOYSTICK_Y).min, device.absinfo(LEFT_JOYSTICK_Y).max)
                 if current_time - last_sent_time['left_y'] >= rate_limit_interval:
-                    send_serial_message(COMMAND_LEFT_J_Y, joystick_position['left_y'])
+                    send_serial_message(COMMAND_LEFT_J_Y, -joystick_position['left_y'])
                     # print(f"Sent LEFT_J_Y: {joystick_position['left_y']}")
                     last_sent_time['left_y'] = current_time
 
@@ -100,7 +100,7 @@ try:
             elif event.code == RIGHT_JOYSTICK_Y:  # Use ABS_RY or axis 5 if necessary
                 joystick_position['right_y'] = normalize(event.value, device.absinfo(RIGHT_JOYSTICK_Y).min, device.absinfo(RIGHT_JOYSTICK_Y).max)
                 if current_time - last_sent_time['right_y'] >= rate_limit_interval:
-                    send_serial_message(COMMAND_RIGHT_J_Y, joystick_position['right_y'])
+                    send_serial_message(COMMAND_RIGHT_J_Y, -joystick_position['right_y'])
                     # print(f"Sent RIGHT_J_Y: {joystick_position['right_y']}")
                     last_sent_time['right_y'] = current_time
 

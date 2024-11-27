@@ -7,7 +7,7 @@
 void get_bezier_middle_point(int32_t *return_point, int32_t *start_point, int32_t *end_point) {
     float theta = atan((end_point[1] - start_point[1]) / (end_point[0] - start_point[0])) + (PI_2);
     int32_t m_point[2] = {(start_point[0] + end_point[0]) / 2, (start_point[1] + end_point[1]) / 2};
-    float length = (sqrt(pow(end_point[0] - start_point[0], 2) + pow(end_point[1] - start_point[1], 2))) / 2;
+    float length = (sqrt(pow(end_point[0] - start_point[0], 2) + pow(end_point[1] - start_point[1], 2))) / 1.5;
     int32_t point[2] = {m_point[0] + (int32_t)(length * cos(theta)), m_point[1] + (int32_t)(length * sin(theta))};
 
     return_point[0] = point[0];
