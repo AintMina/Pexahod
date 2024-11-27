@@ -25,14 +25,6 @@
 #include <math.h>
 
 
-double deg2rad(double degrees) {
-    return degrees * (M_PI / 180.0);
-}
-
-double rad2deg(double radians) {
-    return radians * (180.0 / M_PI);
-}
-
 // Constructors
 Leg::Leg(offset_t offset, uint coxa, uint femur, uint tibia) {
     this->offset.X = offset.X;
@@ -44,8 +36,8 @@ Leg::Leg(offset_t offset, uint coxa, uint femur, uint tibia) {
     this->servos.femur = femur;
     this->servos.tibia = tibia;
 
-    this->gait_offset_point.X = this->offset.X + (this->gait_offset_length * cos(deg2rad(this->offset.rotation)));
-    this->gait_offset_point.Y = this->offset.Y + (this->gait_offset_length * sin(deg2rad(this->offset.rotation)));
+    this->gait_offset_point.X = this->offset.X + (this->gait_offset_length * cos(this->offset.rotation));
+    this->gait_offset_point.Y = this->offset.Y + (this->gait_offset_length * sin(this->offset.rotation));
     this->gait_offset_point.Z = -100;
 
     if (this->gait_offset_point.X < 0.001 && this->gait_offset_point.X > -0.001) {
@@ -72,8 +64,8 @@ Leg::Leg(offset_t offset, int16_t coxa_length, int16_t femur_length, int16_t tib
     this->servos.femur = femur;
     this->servos.tibia = tibia;
 
-    this->gait_offset_point.X = this->offset.X + (this->gait_offset_length * cos(deg2rad(this->offset.rotation)));
-    this->gait_offset_point.Y = this->offset.Y + (this->gait_offset_length * sin(deg2rad(this->offset.rotation)));
+    this->gait_offset_point.X = this->offset.X + (this->gait_offset_length * cos(this->offset.rotation));
+    this->gait_offset_point.Y = this->offset.Y + (this->gait_offset_length * sin(this->offset.rotation));
     this->gait_offset_point.Z = -100;
 
     if (this->gait_offset_point.X < 0.001 && this->gait_offset_point.X > -0.001) {
@@ -238,7 +230,7 @@ uint8_t Leg::set_leg_position(position_t *position) {
 
     float r = sqrt(pow(new_position.X, 2) + pow(new_position.Y, 2));
     float theta = atan2(new_position.Y, new_position.X);
-    theta -= deg2rad(this->offset.rotation);
+    theta -= this->offset.rotation;
     
     new_position.X = cos(theta) * r;
     new_position.Y = sin(theta) * r;
@@ -329,7 +321,7 @@ uint8_t Leg::calculate_coxa_position() {
     //     result -= 2 * M_PI;
     // }
 
-    this->coxa_current_position = rad2deg(result);
+    this->coxa_current_position = result;
     return ERR_NONE;
 }
 
@@ -339,8 +331,8 @@ uint8_t Leg::calculate_femur_position() {
 
     float new_z = this->leg_position.Z;
 
-    float first_part = (this->tibia_length * sin(deg2rad(this->tibia_current_position)));
-    float second_part = (this->femur_length + (this->tibia_length * cos(deg2rad(this->tibia_current_position))));
+    float first_part = (this->tibia_length * sin(this->tibia_current_position));
+    float second_part = (this->femur_length + (this->tibia_length * cos(this->tibia_current_position)));
 
     if (second_part == 0) {
         second_part = 0.0001;
@@ -357,7 +349,7 @@ uint8_t Leg::calculate_femur_position() {
 
     float result = A - B;
 
-    this->femur_current_position = rad2deg(result);
+    this->femur_current_position = result;
 
     return ERR_NONE;
 }
@@ -381,7 +373,7 @@ uint8_t Leg::calculate_tibia_position() {
 
     float result = acos(division);
 
-    this->tibia_current_position = rad2deg(result);
+    this->tibia_current_position = result;
 
     return ERR_NONE;
 }

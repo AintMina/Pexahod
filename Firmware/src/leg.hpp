@@ -43,9 +43,6 @@ struct servos_t {
 };
 
 
-double deg2rad(double degrees);
-double rad2deg(double radians);
-
 class Leg {
 
 private:

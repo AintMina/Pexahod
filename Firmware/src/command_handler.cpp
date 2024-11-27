@@ -124,6 +124,6 @@ void command_handler_main(void *pvParameters) {
             }
         }
 
-    vTaskDelay(command_delay / portTICK_PERIOD_MS);
+        vTaskDelay(command_delay / portTICK_PERIOD_MS);
     }
 }

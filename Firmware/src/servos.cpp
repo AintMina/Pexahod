@@ -5,6 +5,7 @@
 #include "semphr.h"
 
 #include "errors.h"
+#include "unit_conversion.h"
 
 
 const uint START_PIN = servo2040::SERVO_1;
@@ -41,10 +42,6 @@ uint8_t update_servos(Leg *legs[]) {
 
     for (uint8_t leg = 0; leg < 6; leg++) {
         if (legs[leg]->is_enabled()) {
-
-            // printf("Coxa nr: %d - servo pos.: %f - ", legs[leg]->get_coxa_servo(), legs[leg]->get_coxa_position());
-            // printf("Femur nr: %d - servo pos.: %f - ", legs[leg]->get_femur_servo(), legs[leg]->get_femur_position());
-            // printf("Tibia nr: %d - servo pos.: %f\n\r", legs[leg]->get_tibia_servo(), legs[leg]->get_tibia_position());
             set_servo(legs[leg]->get_coxa_servo(), legs[leg]->get_coxa_position());
             set_servo(legs[leg]->get_femur_servo(), -legs[leg]->get_femur_position());
             set_servo(legs[leg]->get_tibia_servo(), legs[leg]->get_tibia_position());
@@ -62,7 +59,7 @@ uint8_t update_servos(Leg *legs[]) {
 
 uint8_t set_servo(uint8_t index, float value) {
     if (xSemaphoreTake(servo_mutex, portMAX_DELAY) == pdTRUE) {
-        servos.value(index, value, true);
+        servos.value(index, rad_to_deg(value), true);
         xSemaphoreGive(servo_mutex);
     } 
     else {

@@ -13,7 +13,7 @@ COMMAND_RIGHT_J_X = 4  # Enum value for LEFT_J_Y
 COMMAND_RIGHT_J_Y = 5  # Enum value for RIGHT_J_Y
 
 # Device paths (change as needed)
-device_path = '/dev/input/event22'  # Replace 'X' with your joystick's event number
+device_path = '/dev/input/event23'  # Replace 'X' with your joystick's event number
 serial_port = '/dev/ttyACM0'       # Path to the USB serial device
 
 # Initialize the joystick input device
