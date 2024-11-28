@@ -1,5 +1,5 @@
-#ifndef NRF_MSG_H
-#define NRF_MSG_H
+#ifndef COMMAND_MESSAGE_H
+#define COMMAND_MESSAGE_H
 
 #include <stdint.h>
 
@@ -7,7 +7,7 @@
 #define PREFIX 0x69
 #define ID 0x00
 
-enum commands_t : uint8_t {
+enum commands_e : uint8_t {
     COMMAND_ERROR,
     LEFT_J_X,
     LEFT_J_Y,
@@ -26,7 +26,7 @@ enum commands_t : uint8_t {
     COMMAND_ENUM_SIZE,
 };
 
-struct nrf_message_t {
+struct command_message_t {
     uint8_t prefix;
     uint8_t length;
     uint8_t id;
@@ -53,8 +53,8 @@ struct joystick_message_t {
     uint8_t acc_z;
 } __attribute__((packed));
 
-void nrf_message_init(struct nrf_message_t *msg);
-void nrf_create_message(struct nrf_message_t *msg, uint8_t length, commands_t command, uint8_t data[8]);
-uint8_t nrf_calculate_crc(struct nrf_message_t *msg);
+void command_message_init(struct command_message_t *msg);
+void command_create_message(struct command_message_t *msg, uint8_t length, commands_e command, uint8_t data[8]);
+uint8_t command_calculate_crc(struct command_message_t *msg);
 
 #endif

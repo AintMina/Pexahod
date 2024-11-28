@@ -1,5 +1,5 @@
 #include "usb.h"
-#include "nrf_msg.h"
+#include "command_message.h"
 #include "queues.h"
 
 #include "FreeRTOS.h"
@@ -16,7 +16,7 @@ void usb_init() {
 
 void read_custom_message() {
     if (tud_cdc_connected()) {
-        struct nrf_message_t message;
+        struct command_message_t message;
         uint8_t *message_ptr = (uint8_t *)&message;
         memset(&message, 0, sizeof(message));
 
@@ -41,7 +41,7 @@ void read_custom_message() {
     }
 }
 
-void send_custom_message(struct nrf_message_t *msg) {
+void send_custom_message(struct command_message_t *msg) {
     printf("%c", msg->prefix);
     printf("%c", msg->length);
     printf("%c", msg->id);
@@ -57,7 +57,7 @@ void usb_main(void *pvParameters) {
         read_custom_message();
 
         // Send command
-        struct nrf_message_t message;
+        struct command_message_t message;
         BaseType_t ret = receive_from_queue(1, &message, 1);
 
         if (ret == pdPASS) {

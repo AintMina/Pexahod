@@ -20,14 +20,14 @@
 
 */
 
-#include "robot_controller.hpp"
-#include "mcu.h"
+#include "robot_controller.h"
+#include "mode_handler.h"
 #include "led.h"
 #include "gait.hpp"
 #include "servos.h"
 #include "leg.hpp"
 #include "servo2040.hpp"
-#include "robot.hpp"
+#include "robot.h"
 #include "unit_conversion.h"
 
 #include "FreeRTOS.h"
@@ -53,7 +53,6 @@ const uint16_t femur_length = 120;
 const uint16_t tibia_length = 200;
 
 offset_t leg1_offset = {-x_1, y_1, 0, (float)(deg_to_rad(120.0))};
-// offset_t leg1_offset = {0, y_2, 0, 90};
 Leg leg1 = Leg(leg1_offset, coxa_length, femur_length, tibia_length, servo2040::SERVO_1, servo2040::SERVO_2, servo2040::SERVO_3);
 
 offset_t leg2_offset = {-x_2, 0, 0, (float)(deg_to_rad(180.0))};

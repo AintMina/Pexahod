@@ -1,7 +1,7 @@
 import serial
 import struct
 
-# Define the struct format based on your C struct `nrf_message_t`
+# Define the struct format based on your C struct `command_message_t`
 # Format string explanation:
 #   B  -> unsigned char (1 byte)
 #   B  -> unsigned char (1 byte)

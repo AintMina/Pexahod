@@ -1,5 +1,5 @@
-#ifndef GAIT_H
-#define GAIT_H
+#ifndef GAIT_HPP
+#define GAIT_HPP
 
 /*
 
@@ -23,7 +23,7 @@
 
 */
 
-#include "robot.hpp"
+#include "robot.h"
 
 
 struct gait_t {
@@ -31,7 +31,7 @@ struct gait_t {
     float t_in_air[6];
 };
 
-enum Gaits {
+enum gaits_e {
     TRIGAIT,
     WAVEGAIT,
     RIPPLEGAIT,
@@ -43,4 +43,4 @@ void get_gait_point_v1(position_t return_points[6], Leg *legs[6], float time);
 void get_gait_point_v2(position_t return_points[6], Leg *legs[6], float time, velocity_t vel);
 
 
-#endif // GAIT_H
+#endif // GAIT_HPP

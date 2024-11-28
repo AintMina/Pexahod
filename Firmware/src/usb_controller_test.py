@@ -55,7 +55,7 @@ def normalize(value, min_input, max_input):
     return (2 * ((value - min_input) / (max_input - min_input))) - 1
 
 def send_serial_message(command, data_float):
-    """Send data to the serial port using the nrf_message_t structure."""
+    """Send data to the serial port using the command_message_t structure."""
     f = round(data_float, 3)
 
     if (f < 0.15 and f > -0.15):

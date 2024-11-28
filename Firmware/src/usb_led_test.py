@@ -9,7 +9,7 @@ def calculate_crc(data):
     crc = (0x100 - (sum_bytes & 0xFF)) & 0xFF  # CRC calculation
     return crc
 
-# Define the nrf_message_t struct
+# Define the command_message_t struct
 class NrfMessage:
     def __init__(self, prefix, id, command, data):
         self.prefix = prefix

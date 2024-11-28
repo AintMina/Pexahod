@@ -1,10 +1,10 @@
 #include "command_handler.h"
 #include "queues.h"
-#include "nrf_msg.h"
+#include "command_message.h"
 #include "errors.h"
 #include "led.h"
 #include "servos.h"
-#include "robot.hpp"
+#include "robot.h"
 
 #include <string.h>
 
@@ -14,7 +14,7 @@ const uint16_t command_delay = 1;
 void command_handler_main(void *pvParameters) {
     while (1) {
 
-        struct nrf_message_t message;
+        struct command_message_t message;
         BaseType_t ret = receive_from_queue(0, &message, 1);
 
         if (ret == pdPASS) {
@@ -28,11 +28,11 @@ void command_handler_main(void *pvParameters) {
             message.data[message.length] = 0;
 
             // Checking CRC
-            uint8_t crc = nrf_calculate_crc(&message);
+            uint8_t crc = command_calculate_crc(&message);
 #if 1
             if (crc != message.crc) {
                 uint8_t data[1] = {ERR_CRC};
-                nrf_create_message(&message, 1, COMMAND_ERROR, data);
+                command_create_message(&message, 1, COMMAND_ERROR, data);
                 send_to_queue(1, &message, 1);
             }
 #endif

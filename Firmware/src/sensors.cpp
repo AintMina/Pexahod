@@ -1,5 +1,5 @@
 #include "sensors.h"
-#include "nrf_msg.h"
+#include "command_message.h"
 #include "queues.h"
 
 #include "FreeRTOS.h"
@@ -30,7 +30,7 @@ uint8_t sensors_init() {
 void sensors_main(void *pvParameters) {
     while (1) {
         // Send voltage
-        struct nrf_message_t message;
+        struct command_message_t message;
         message.length = 0;
         
         float voltage = read_voltage_sensor();
@@ -40,7 +40,7 @@ void sensors_main(void *pvParameters) {
             message.length++;
         }
 
-        nrf_create_message(&message, message.length, VOLTAGE, data);
+        command_create_message(&message, message.length, VOLTAGE, data);
         send_to_queue(1, &message, 1);
 
         // Send current
@@ -52,7 +52,7 @@ void sensors_main(void *pvParameters) {
             message.length++;
         }
 
-        nrf_create_message(&message, message.length, CURRENT, data);
+        command_create_message(&message, message.length, CURRENT, data);
         send_to_queue(1, &message, 1);
 
         vTaskDelay(100 / portTICK_PERIOD_MS);

@@ -146,12 +146,12 @@ uint16_t Leg::get_tibia_length() const {
     return this->tibia_length;
 }
 
-uint8_t Leg::set_gait(enum Gaits gait) {
+uint8_t Leg::set_gait(enum gaits_e gait) {
     this->gait = gait;
     return ERR_NONE;
 }
 
-enum Gaits Leg::get_gait() const {
+enum gaits_e Leg::get_gait() const {
     return this->gait;
 }
 

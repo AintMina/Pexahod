@@ -10,11 +10,11 @@
 #define MAX_QUEUES 2
 
 
-struct nrf_message_t;
+struct command_message_t;
 
 void init_queue(void);
-BaseType_t send_to_queue(int index, const struct nrf_message_t *message, TickType_t xTicksToWait);
-BaseType_t receive_from_queue(int index, struct nrf_message_t *message, TickType_t xTicksToWait);
+BaseType_t send_to_queue(int index, const struct command_message_t *message, TickType_t xTicksToWait);
+BaseType_t receive_from_queue(int index, struct command_message_t *message, TickType_t xTicksToWait);
 
 
 

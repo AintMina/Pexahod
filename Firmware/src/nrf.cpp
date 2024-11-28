@@ -1,5 +1,5 @@
 #include "nrf.h"
-#include "nrf_msg.h"
+#include "command_message.h"
 #include "pins.h"
 #include "led.h"
 
@@ -14,7 +14,7 @@ extern "C" {
 
 // const uint8_t address[6] = {0x30, 0x30, 0x30, 0x30, 0x30};
 const uint8_t address[6] = {0xC2, 0xC2, 0xC2, 0xC2, 0xC2};
-struct nrf_message_t nrf_package;
+struct command_message_t nrf_package;
 
 
 // provides access to driver functions
@@ -79,7 +79,7 @@ void nrf_main(void *pvParameters) {
         if (my_nrf.is_packet(&pipe_number)) {
             // read payload
             my_nrf.read_packet(&nrf_package, sizeof(nrf_package));
-			uint8_t crc = nrf_calculate_crc(&nrf_package);
+			uint8_t crc = command_calculate_crc(&nrf_package);
         }
 
 		for (int i = 0; i < 255; i++) {

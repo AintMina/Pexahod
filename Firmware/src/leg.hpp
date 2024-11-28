@@ -25,7 +25,7 @@
 
 #include <cstdint>
 #include "pico/stdlib.h"
-#include "robot.hpp"
+#include "robot.h"
 #include "gait.hpp"
 
 struct offset_t {
@@ -66,7 +66,7 @@ private:
     uint16_t gait_offset_length = coxa_length + ((femur_length + tibia_length) / 2);
     position_t gait_offset_point;
     uint16_t max_step_size = 200;
-    enum Gaits gait = RIPPLEGAIT;
+    enum gaits_e gait = RIPPLEGAIT;
 
 public:
     // Constructors
@@ -90,8 +90,8 @@ public:
     uint8_t set_tibia_length(uint16_t length);
     uint16_t get_tibia_length() const;
 
-    uint8_t set_gait(enum Gaits gait);
-    enum Gaits get_gait() const;
+    uint8_t set_gait(enum gaits_e gait);
+    enum gaits_e get_gait() const;
     uint8_t set_max_step_size(uint16_t step_size);
     uint16_t get_max_step_size() const;
     uint8_t set_gait_offset(position_t offset);

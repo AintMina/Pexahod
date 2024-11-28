@@ -24,7 +24,7 @@ struct gait_t gaits[NUM_GAITS] = {trigait, wavegait, ripplegait};
 
 void get_gait_point_v1(position_t return_points[6], Leg *legs[6], float time) {
     for (int i = 0; i < 6; i++) {
-        enum Gaits gait = legs[i]->get_gait();
+        enum gaits_e gait = legs[i]->get_gait();
         float t_in_air_end = gaits[gait].t_offsets[i] + gaits[gait].t_in_air[i];
 
         uint8_t status = 0;
@@ -113,7 +113,7 @@ void get_gait_point_v1(position_t return_points[6], Leg *legs[6], float time) {
 
 void get_gait_point_v2(position_t return_points[6], Leg *legs[6], float time, velocity_t vel) {
     for (int i = 0; i < 6; i++) {
-        enum Gaits gait = legs[i]->get_gait();
+        enum gaits_e gait = legs[i]->get_gait();
         float t_in_air_end = gaits[gait].t_offsets[i] + gaits[gait].t_in_air[i];
 
         uint8_t status = 0;
