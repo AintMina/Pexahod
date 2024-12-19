@@ -9,7 +9,8 @@
 enum mode_e : uint8_t {
     CALIBRATION_MODE,
     IDLE_MODE,
-    READY_MODE
+    READY_MODE,
+    NR_MODES
 };
 
 

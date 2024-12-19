@@ -28,6 +28,10 @@
 #include "robot.h"
 #include "gait.hpp"
 
+// FreeRTOS
+#include <FreeRTOS.h>
+#include <semphr.h>
+
 struct offset_t {
     float X;
     float Y;
@@ -47,13 +51,14 @@ class Leg {
 
 private:
     uint8_t enabled = 0;
-    offset_t offset = {0, 0, 0, 0};  // (X,Y,Z,rotation)
+    uint8_t id = 0;
+    offset_t offset = {0, 0, 0, 0};  // Leg start point offset (X,Y,Z,rotation)
     uint16_t coxa_length = 65;
     uint16_t femur_length = 120;
     uint16_t tibia_length = 200;
-    float coxa_current_position = 0;
-    float femur_current_position = 0;
-    float tibia_current_position = 0;
+    float coxa_current_position = 0;    // In radians
+    float femur_current_position = 0;   // In radians
+    float tibia_current_position = 0;   // In radians
     int16_t coxa_limits[2];  // (min,max)
     int16_t femur_limits[2];  // (min,max)
     int16_t tibia_limits[2];  // (min,max)
@@ -62,23 +67,29 @@ private:
     int16_t sensor_position[3] = {0, 0, 0};  // (coxa,femur,tibia)
     uint8_t end_stop_sensor = 0;
     servos_t servos;  // (coxa,femur,tibia)
+    float servo_offsets[3];
     uint8_t move = 0; // ???
     uint16_t gait_offset_length = coxa_length + ((femur_length + tibia_length) / 2);
     position_t gait_offset_point;
     uint16_t max_step_size = 200;
     enum gaits_e gait = RIPPLEGAIT;
+    SemaphoreHandle_t mutex; // Mutex for thread safety
 
 public:
     // Constructors
     Leg() = default;
-    Leg(offset_t offset, uint coxa, uint femur, uint tibia);
-    Leg(offset_t offset, int16_t coxa_length, int16_t femur_length, int16_t tibia_length, uint coxa, uint femur, uint tibia);
+    Leg(uint8_t id, offset_t offset, uint coxa, uint femur, uint tibia);
+    Leg(uint8_t id, offset_t offset, int16_t coxa_length, int16_t femur_length, int16_t tibia_length, uint coxa, uint femur, uint tibia);
+    // Destructor
+    ~Leg();
 
     uint8_t init();
 
     uint8_t enable();
     uint8_t disable();
     uint8_t is_enabled() const;
+    uint8_t set_id(uint8_t new_id);
+    uint8_t get_id() const;
 
     uint8_t set_offset(offset_t offset);
     uint8_t get_offset(offset_t *offset) const;
@@ -129,6 +140,9 @@ public:
     uint8_t calculate_femur_position();
     uint8_t calculate_tibia_position();
     uint8_t calculate_positions();
+
+    uint8_t set_servo_offsets(float offsets[3]);
+    uint8_t get_servo_offsets(float offsets[3]) const;
 };
 
 #endif // LEG_HPP

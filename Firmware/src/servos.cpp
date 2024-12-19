@@ -42,9 +42,20 @@ uint8_t update_servos(Leg *legs[]) {
 
     for (uint8_t leg = 0; leg < 6; leg++) {
         if (legs[leg]->is_enabled()) {
-            set_servo(legs[leg]->get_coxa_servo(), legs[leg]->get_coxa_position());
-            set_servo(legs[leg]->get_femur_servo(), -legs[leg]->get_femur_position());
-            set_servo(legs[leg]->get_tibia_servo(), legs[leg]->get_tibia_position());
+
+            float offsets[3] = {0, 0, 0};
+            legs[leg]->get_servo_offsets(offsets);
+
+            if (legs[leg]->get_id() < 3) {
+                set_servo(legs[leg]->get_coxa_servo(), (legs[leg]->get_coxa_position() + offsets[0]));
+                set_servo(legs[leg]->get_femur_servo(), -(legs[leg]->get_femur_position() + offsets[1]));
+                set_servo(legs[leg]->get_tibia_servo(), (legs[leg]->get_tibia_position() + offsets[2]));
+            }
+            else if (legs[leg]->get_id() >= 3 && legs[leg]->get_id() < 6) {
+                set_servo(legs[leg]->get_coxa_servo(), -(legs[leg]->get_coxa_position() + offsets[0]));
+                set_servo(legs[leg]->get_femur_servo(), (legs[leg]->get_femur_position() + offsets[1]));
+                set_servo(legs[leg]->get_tibia_servo(), -(legs[leg]->get_tibia_position() + offsets[2]));
+            }
         }
         else {
             servos.disable(legs[leg]->get_coxa_servo());

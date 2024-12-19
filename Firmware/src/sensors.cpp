@@ -41,7 +41,7 @@ void sensors_main(void *pvParameters) {
         }
 
         command_create_message(&message, message.length, VOLTAGE, data);
-        send_to_queue(1, &message, 1);
+        send_to_queue(USB_QUEUE, &message, 1);
 
         // Send current
         message.length = 0;
@@ -53,7 +53,7 @@ void sensors_main(void *pvParameters) {
         }
 
         command_create_message(&message, message.length, CURRENT, data);
-        send_to_queue(1, &message, 1);
+        send_to_queue(USB_QUEUE, &message, 1);
 
         vTaskDelay(100 / portTICK_PERIOD_MS);
     }

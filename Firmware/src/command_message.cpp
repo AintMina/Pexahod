@@ -9,7 +9,7 @@ void command_message_init(struct command_message_t *msg) {
     msg->prefix = PREFIX;
 }
 
-void command_create_message(struct command_message_t *msg, uint8_t length, commands_e command, uint8_t data[8]) {
+void command_create_message(struct command_message_t *msg, uint8_t length, commands_e command, uint8_t data[32]) {
 
     command_message_init(msg);
     msg->prefix = PREFIX;

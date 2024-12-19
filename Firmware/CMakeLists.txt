@@ -69,7 +69,8 @@ include(drivers/button/button)
 
 # Add any user requested libraries
 target_link_libraries(Servo2040
-    pico_stdlib 
+    pico_stdlib
+    pico_sync
     FreeRTOS-Kernel 
     FreeRTOS-Kernel-Heap4
     hardware_spi

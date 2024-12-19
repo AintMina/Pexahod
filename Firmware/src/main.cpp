@@ -23,25 +23,22 @@
 // System
 #include "pico/stdlib.h"
 #include <math.h>
-
-// Servo2040
-#include "servo2040.hpp"
-#include "analogmux.hpp"
-#include "analog.hpp"
-
+#define DEBUG
 
 // Local
 #include "led.h"
 #include "nrf.h"
 #include "queues.h"
 #include "mode_handler.h"
+#include "robot.h"
 
-using namespace servo;
 
 
 int main() {
+#ifdef DEBUG
     // NEEDED FOR DEBUG!!!
     timer_hw->dbgpause = 0;
+#endif
 
     stdio_init_all();
 
@@ -49,9 +46,10 @@ int main() {
     stdio_set_translate_crlf(&stdio_usb, false);
     sleep_ms(10);
 
-    init_queue();   // Init RTOS queues
-	  led_init();     // Init LED HW
-    init_mode();    // Init tasks and mode
+    init_queue();       // Init RTOS queues
+	led_init();         // Init LED HW
+    init_mode();        // Init tasks and mode
+    init_robot_settings();    // Init flash for settings
 
     // Start the scheduler
     vTaskStartScheduler();

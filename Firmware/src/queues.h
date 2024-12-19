@@ -7,8 +7,13 @@
 #include <queue.h>
 
 #define MAX_DATA_SIZE 64
-#define MAX_QUEUES 2
 
+
+enum queues_e {
+    COMMAND_HANDLER_QUEUE,
+    USB_QUEUE,
+    NR_QUEUES,
+};
 
 struct command_message_t;
 

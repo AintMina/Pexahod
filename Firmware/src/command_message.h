@@ -21,8 +21,12 @@ enum commands_e : uint8_t {
     VOLTAGE,
     CURRENT,
     LEDS,
+    SET_MODE,
     SET_SERVO,
     SET_LEG_SERVO,
+    SET_LEG_SERVO_OFFSETS,
+    GET_LEG_SERVO_SETTINGS,
+    SAVE_SERVO_SETTINGS,
     COMMAND_ENUM_SIZE,
 };
 
@@ -54,7 +58,7 @@ struct joystick_message_t {
 } __attribute__((packed));
 
 void command_message_init(struct command_message_t *msg);
-void command_create_message(struct command_message_t *msg, uint8_t length, commands_e command, uint8_t data[8]);
+void command_create_message(struct command_message_t *msg, uint8_t length, commands_e command, uint8_t data[32]);
 uint8_t command_calculate_crc(struct command_message_t *msg);
 
 #endif
