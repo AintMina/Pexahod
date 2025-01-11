@@ -52,7 +52,7 @@ uint8_t update_servos(Leg *legs[]) {
                 set_servo(legs[leg]->get_tibia_servo(), (legs[leg]->get_tibia_position() + offsets[2]));
             }
             else if (legs[leg]->get_id() >= 3 && legs[leg]->get_id() < 6) {
-                set_servo(legs[leg]->get_coxa_servo(), -(legs[leg]->get_coxa_position() + offsets[0]));
+                set_servo(legs[leg]->get_coxa_servo(), (legs[leg]->get_coxa_position() + offsets[0]));
                 set_servo(legs[leg]->get_femur_servo(), (legs[leg]->get_femur_position() + offsets[1]));
                 set_servo(legs[leg]->get_tibia_servo(), -(legs[leg]->get_tibia_position() + offsets[2]));
             }

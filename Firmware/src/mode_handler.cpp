@@ -77,7 +77,7 @@ void init_mode() {
     xTaskCreate(usb_main, "UsbTask", 1024, NULL, 1, &xUsbHandle);
     xTaskCreate(sensors_main, "SensorTask", 1024, NULL, 2, &xSensorHandle);
     xTaskCreate(command_handler_main, "CommandTask", 1024, NULL, 2, &xCommandHandle);
-    xTaskCreate(nrf_main, "NrfTask", 1024, NULL, 1, &xNrfHandle);
+    //xTaskCreate(nrf_main, "NrfTask", 1024, NULL, 1, &xNrfHandle);
 
     // // Restrict to cores
     // UBaseType_t uxCoreAffinityMask;

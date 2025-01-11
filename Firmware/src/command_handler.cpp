@@ -31,13 +31,13 @@ void command_handler_main(void *pvParameters) {
 
             // Checking CRC
             uint8_t crc = command_calculate_crc(&message);
-#if 0
+
             if (crc != message.crc) {
                 uint8_t data[1] = {ERR_CRC};
                 command_create_message(&message, 1, COMMAND_ERROR, data);
                 send_to_queue(USB_QUEUE, &message, 1);
             }
-#endif
+
 
             switch (message.command) {
                 case COMMAND_ERROR: {

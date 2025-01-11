@@ -191,8 +191,8 @@ void get_gait_point_v2(position_t return_points[6], Leg *legs[6], float time, ve
         position_t offset;
         legs[i]->get_gait_offset(&offset);
 
-        return_points[i].X = point2[0] + offset.X;
-        return_points[i].Y = point[0] + offset.Y;
-        return_points[i].Z = ((point[1] + point2[1]) / 2) + offset.Z;
+        return_points[i].X = offset.X + point2[0];
+        return_points[i].Y = offset.Y + point[0];
+        return_points[i].Z = offset.Z + ((point[1] + point2[1]) / 2);
     }
 }

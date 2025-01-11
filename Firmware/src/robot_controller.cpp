@@ -47,9 +47,9 @@ void robot_controller_main(void *pvParameters) {
     leg2.init();
     leg3.init();
     leg4.init();
-    leg4.disable();
     leg5.init();
     leg6.init();
+
     init_servos();
     update_servos(all_legs);
     position_t positions[6];
