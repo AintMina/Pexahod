@@ -105,6 +105,7 @@ public:
     enum gaits_e get_gait() const;
     uint8_t set_max_step_size(uint16_t step_size);
     uint16_t get_max_step_size() const;
+    uint16_t get_gait_offset_length() const;
     uint8_t set_gait_offset(position_t offset);
     uint8_t get_gait_offset(position_t *offset) const;
 
@@ -120,6 +121,7 @@ public:
     uint8_t set_tibia_limits(int16_t min, int16_t max);
 
     uint8_t set_leg_position(position_t *position);
+    uint8_t set_leg_position_raw(position_t *position);
     uint8_t get_leg_position(position_t *position) const;
     uint8_t set_sensor_calculated_position(position_t position);
     uint8_t get_sensor_calculated_position(position_t position) const;

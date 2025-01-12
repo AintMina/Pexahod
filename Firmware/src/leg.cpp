@@ -43,7 +43,7 @@ Leg::Leg(uint8_t id, offset_t offset, uint coxa, uint femur, uint tibia) {
 
     this->gait_offset_point.X = this->offset.X + (this->gait_offset_length * cos(this->offset.rotation));
     this->gait_offset_point.Y = this->offset.Y + (this->gait_offset_length * sin(this->offset.rotation));
-    this->gait_offset_point.Z = -100;
+    this->gait_offset_point.Z = -150;
 
     if (this->gait_offset_point.X < 0.001 && this->gait_offset_point.X > -0.001) {
         this->gait_offset_point.X = 0.0;
@@ -74,7 +74,7 @@ Leg::Leg(uint8_t id, offset_t offset, int16_t coxa_length, int16_t femur_length,
 
     this->gait_offset_point.X = this->offset.X + (this->gait_offset_length * cos(this->offset.rotation));
     this->gait_offset_point.Y = this->offset.Y + (this->gait_offset_length * sin(this->offset.rotation));
-    this->gait_offset_point.Z = -100;
+    this->gait_offset_point.Z = -150;
 
     if (this->gait_offset_point.X < 0.001 && this->gait_offset_point.X > -0.001) {
         this->gait_offset_point.X = 0.0;
@@ -286,6 +286,16 @@ uint16_t Leg::get_max_step_size() const {
     return ret;
 }
 
+uint16_t Leg::get_gait_offset_length() const {
+    uint16_t ret;
+    if (xSemaphoreTake(mutex, portMAX_DELAY) == pdTRUE) {
+        ret = this->gait_offset_length;
+
+        xSemaphoreGive(mutex); // Release the mutex
+    }
+    return ret;
+}
+
 uint8_t Leg::set_gait_offset(position_t offset) {
     if (xSemaphoreTake(mutex, portMAX_DELAY) == pdTRUE) {
         this->gait_offset_point.X = offset.X;
@@ -411,6 +421,20 @@ uint8_t Leg::set_leg_position(position_t *position) {
         this->leg_position.X = new_position.X;
         this->leg_position.Y = new_position.Y;
         this->leg_position.Z = new_position.Z;
+
+        xSemaphoreGive(mutex); // Release the mutex
+    }
+
+    this->calculate_positions();
+    return ERR_NONE;
+}
+
+uint8_t Leg::set_leg_position_raw(position_t *position) {
+    if (xSemaphoreTake(mutex, portMAX_DELAY) == pdTRUE) {
+
+        this->leg_position.X = position->X;
+        this->leg_position.Y = position->Y;
+        this->leg_position.Z = -position->Z;
 
         xSemaphoreGive(mutex); // Release the mutex
     }
